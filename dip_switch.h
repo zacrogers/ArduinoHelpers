@@ -1,3 +1,7 @@
+#ifndef DIP_SWITCH_H
+#define DIP_SWITCH_H
+
+
 #define NUM_SWITCHES 4
 
 class DipSwitch{
@@ -31,3 +35,5 @@ class DipSwitch{
     private:
         uint8_t _pins[NUM_SWITCHES] = {0, 0, 0, 0};
 };
+
+#endif /*DIP_SWITCH_H*/
