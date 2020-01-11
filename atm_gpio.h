@@ -41,7 +41,7 @@ class Gpio
             }
         }
         
-        void set()
+        void set(void)
         {
             switch(this->port)
             {
@@ -59,7 +59,7 @@ class Gpio
             }                                
         }
         
-        void clear()
+        void clear(void)
         {
             switch(this->port)
             {
@@ -76,7 +76,25 @@ class Gpio
                     break;                        
             }           
         }
-        
+ 
+        void toggle(void)
+        {
+            switch(this->port)
+            {
+                case(Port::B):
+                    PORTB ^= (0x01 << this->pin);
+                    break;
+
+                case(Port::C):
+                    PORTC ^= (0x01 << this->pin);
+                    break;
+
+                case(Port::D):
+                    PORTD ^= (0x01 << this->pin);
+                    break;                        
+            }           
+        }    
+    
         bool read()
         {
             bool ret_val = false;
