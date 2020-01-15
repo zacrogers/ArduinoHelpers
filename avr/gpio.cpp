@@ -13,20 +13,21 @@ namespace z_lib
 		this->port = port;
 		this->pin  = pin;
 		
-		/* Set mode */
-		if(mode == IN)
+		switch(mode)
 		{
-			DDR(*port) &= ~(1 << this->pin);
+			case IN:
+				DDR(*port) &= ~(1 << this->pin);
+				break;
+				
+			case OUT:
+				DDR(*port) |= (1 << this->pin);
+				break;
+				
+			case PULLUP:
+				DDR(*port) &= ~(1 << this->pin);
+				*port |= (1 << this->pin);
+				break;
 		}
-		else if(mode == OUT)
-		{
-			DDR(*port) |= (1 << this->pin);
-		}
-		else if(mode == PULLUP)
-		{
-			DDR(*port) &= ~(1 << this->pin);
-			*port |= (1 << this->pin);
-		}		
 	}
 	
 	void Gpio::set(void)
