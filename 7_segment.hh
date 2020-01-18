@@ -18,8 +18,9 @@
 #define SEVEN_SEGMENT_H
 
 #define SEGMENTS 7
-//#define COMMON_CATHODE
-#define COMMON_ANODE
+
+/* Comment this out if display is common cathode */
+#define COMMON_ANODE 
 
 const uint8_t DIGITS[10] = {0x7E, 0x30, 0x6D, 0x79, 0x33, 
                             0x5B, 0x5F, 0x70, 0xFF, 0x7B};
@@ -48,7 +49,7 @@ class SevenSegment
 
         digitalWrite(this->latch, LOW);
 
-        for(uint8_t segment = 0; segment < SEGMENTS; segment++)
+        for(uint8_t segment = 0; segment < SEGMENTS; ++segment)
         {
             digitalWrite(this->clk, LOW);
             
@@ -61,9 +62,8 @@ class SevenSegment
             {
                 digitalWrite(this->data, HIGH);     
             }
-            #endif
             
-            #ifdef COMMON_CATHODE
+            #else
             if(digit & (0x01 << segment))
             {
                 digitalWrite(this->data, HIGH);        
@@ -71,8 +71,7 @@ class SevenSegment
             else                  
             {
                 digitalWrite(this->data, LOW);     
-            }            
-            
+            }                        
             #endif
             
             digitalWrite(this->clk, HIGH);
