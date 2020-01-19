@@ -44,57 +44,45 @@ namespace z_lib
         }
 
         *this->latch.clear();
-        //digitalWrite(this->latch, LOW);
 
         for(uint8_t segment = 0; segment < SEGMENTS; segment++)
         {
             *this->clk.clear();
-            //digitalWrite(this->clk, LOW);
             
             if(digit & (0x01 << segment))
             {
                 *this->data.clear();
-                //digitalWrite(this->data, LOW);        
             }
             else                  
             {
                 *this->data.set();
-                //digitalWrite(this->data, HIGH);     
             }
             *this->clk.set();
-            //digitalWrite(this->clk, HIGH);
         } 
         *this->latch.set();
-        //digitalWrite(this->latch, HIGH);     
     }
 
     void SevenSegment::set_letter(char letter)
     {
       uint8_t curr_letter = LETTERS[get_letter(letter)];
       
-        //digitalWrite(this->latch, LOW);
         *this->latch.clear();
 
         for(uint8_t segment = 0; segment < SEGMENTS; segment++)
         {
-            //digitalWrite(this->clk, LOW);
             *this->latch.clear();
             
             if(curr_letter & (0x01 << segment))
             {
-                //digitalWrite(this->data, LOW);        
                 *this->data.clear();
             }
             else                  
             {
-                //digitalWrite(this->data, HIGH);     
                 *this->data.set();
             }
             
-            //digitalWrite(this->clk, HIGH);
             *this->clk.set();
         } 
-        //digitalWrite(this->latch, HIGH);           
         *this->latch.set();      
     }
 
@@ -113,8 +101,7 @@ namespace z_lib
           else if(ALPHABET[let] == (letter + ASCII_OFFSET))
           {
             letter_index = let; 
-          }          
-          
+          }             
       }
       return letter_index;       
     }
