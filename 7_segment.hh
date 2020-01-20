@@ -1,17 +1,5 @@
 /*
     7 segment display driver using 74hc595 shift register
-
-    n abcdefg
-    0 1111110
-    1 0110000
-    2 1101101
-    3 1111001
-    4 0110011
-    5 1011011 
-    6 1011111
-    7 1110000
-    8 1111111
-    9 1111011
 */
 
 #ifndef SEVEN_SEGMENT_H
@@ -70,7 +58,7 @@ class SevenSegment
 
     void set_letter(char letter)
     {
-      write_to_disp(LETTERS[get_letter(letter)]);
+        write_to_disp(LETTERS[get_letter(letter)]);
     }
   
   private:
@@ -101,13 +89,13 @@ class SevenSegment
     }
 
     /* Get index of letter in ALPHABET to get display pattern in LETTERS */
-    uint8_t get_letter(char letter)
+    uint8_t get_letter(const char letter)
     {
         uint8_t letter_index = 0;
         
         for(uint8_t let = 0; let < NUM_LETTERS; ++let)
         {
-            if(is_upper(letter))
+            if(is_upper(&letter))
             {
                 if(ALPHABET[let] == letter)
                 {
@@ -116,7 +104,7 @@ class SevenSegment
             }
             else
             {
-                if(ALPHABET[let] == lower_to_upper(letter))
+                if(ALPHABET[let] == lower_to_upper(&letter))
                 {
                    letter_index = let;
                 }            
@@ -126,16 +114,17 @@ class SevenSegment
     }
 
     /* Max upper case letter in ascii table is Z at 90 */
-    bool is_upper(char let)
+    bool is_upper(const char* letter)
     {
-        return (let < 91) ? true : false;
+        return (*letter < 91) ? true : false;
     }
 
-    char lower_to_upper(char lower)
+    char lower_to_upper(const char* lower)
     {
-        return lower - ASCII_OFFSET;  
+        char upper = (*lower - ASCII_OFFSET);
+        return upper;  
     }
 };
 
 
-#endif /* 7_SEGMENT_H */
+#endif /* SEVEN_SEGMENT_H */
