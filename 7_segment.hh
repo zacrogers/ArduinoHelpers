@@ -116,12 +116,23 @@ class SevenSegment
     /* Max upper case letter in ascii table is Z at 90 */
     bool is_upper(const char* letter)
     {
-        return (*letter < 91) ? true : false;
+        bool ret_val = false;
+        
+        if(letter)
+        {
+            ret_val = ((*letter < 91) ? true : false);
+        }       
+        return ret_val;
     }
 
     char lower_to_upper(const char* lower)
     {
-        char upper = (*lower - ASCII_OFFSET);
+        char upper = 0;
+        
+        if(lower)
+        {
+            upper = (*lower - ASCII_OFFSET);
+        }
         return upper;  
     }
 };
