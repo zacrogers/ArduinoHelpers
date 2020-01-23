@@ -15,26 +15,29 @@
 #define PORT(x) (x)
 
 namespace z_lib
-{
-	
+{	
 	enum Mode
 	{
 		IN = 0,
 		OUT,
-		PULLUP		
+		PULLUP,
+		ANALOG
 	};
 		
 	
 	class Gpio
 	{
 		public:
-			Gpio(volatile uint8_t *port, uint8_t pin, Mode mode);
-			void    set         (void);
-			void    clear       (void);
-			void    toggle      (void);
-			uint8_t read        (void);
+			Gpio(volatile uint8_t *port, uint8_t pin, Mode mode); /* For digital io */
+			Gpio(uint8_t pin, Mode mode); /* For analog in */
+		
+			void     set         (void);
+			void     clear       (void);
+			void     toggle      (void);
+			uint8_t  read        (void);
+			uint16_t analog_read (void);
 			
-			void    set_pullup  (void);
+			void     set_pullup  (void);
 		
 		private:
 			volatile uint8_t *port;
