@@ -1,6 +1,11 @@
 #ifndef I2C_MASTER_H_
 #define I2C_MASTER_H_
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
+
 #include <stdint.h>
 #include <avr/io.h>
 #include <util/twi.h>
@@ -39,5 +44,9 @@ uint8_t i2c_receive    (uint8_t address, uint8_t* data, uint16_t length);
 uint8_t i2c_writeReg   (uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length);
 uint8_t i2c_readReg    (uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length);
 void    i2c_stop       (void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* I2C_MASTER_H_ */

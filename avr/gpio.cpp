@@ -6,8 +6,7 @@
  */ 
 #include "gpio.h"
 namespace z_lib
-{
-	
+{	
 	Gpio::Gpio(volatile uint8_t *port, uint8_t pin, Mode mode)
 	{
 		this->port = port;
@@ -15,15 +14,15 @@ namespace z_lib
 		
 		switch(mode)
 		{
-			case IN:
+			case Mode::IN:
 				DDR(*port) &= ~(1 << this->pin);
 				break;
 				
-			case OUT:
+			case Mode::OUT:
 				DDR(*port) |= (1 << this->pin);
 				break;
 				
-			case PULLUP:
+			case Mode::PULLUP:
 				DDR(*port) &= ~(1 << this->pin);
 				*port |= (1 << this->pin);
 				break;

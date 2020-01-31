@@ -6,6 +6,7 @@
  */ 
 #ifndef GPIO_H_
 #define GPIO_H_
+
 #include <avr/io.h>
 #include <stdint.h>
 
@@ -16,24 +17,24 @@
 
 namespace z_lib
 {
-	
-	enum Mode
+	enum class Mode
 	{
 		IN = 0,
 		OUT,
-		PULLUP		
+		PULLUP,
+		ANALOG	
 	};
 		
-	
 	class Gpio
 	{
 		public:
 			Gpio(volatile uint8_t *port, uint8_t pin, Mode mode);
+			
 			void    set         (void);
 			void    clear       (void);
 			void    toggle      (void);
 			uint8_t read        (void);
-			
+			uint8_t analog_read (void);
 			void    set_pullup  (void);
 		
 		private:
@@ -41,9 +42,5 @@ namespace z_lib
 			uint8_t pin;
 	};
 }
-
-
-
-
 
 #endif /* GPIO_H_ */

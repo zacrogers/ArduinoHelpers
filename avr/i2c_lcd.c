@@ -14,13 +14,13 @@ void LCD_Init (I2C_LCD *lcd)
 	i2c_start(lcd->address << 1);
 	
 	LCD_SendCmd(lcd, LCD_HOME);
-	_delay_ms(100);
+	//_delay_ms(100);
 	LCD_SendCmd(lcd, LCD_MODE_4BIT);
-	_delay_ms(100);
+	//_delay_ms(100);
 	LCD_SendCmd(lcd, LCD_CUR_HOME_1);
-	_delay_ms(100);
+	//_delay_ms(100);
 	LCD_SendCmd(lcd, LCD_CLEAR);
-	_delay_ms(100);
+	//_delay_ms(100);
 	LCD_SendCmd(lcd, LCD_CUR_BLINK_ON);
 }
 
@@ -72,7 +72,7 @@ void LCD_DisableCursor(I2C_LCD *lcd)
 }
 
 
-void LCD_SendString (I2C_LCD *lcd, char *str)
+void LCD_SendString (I2C_LCD *lcd, const char *str)
 {
 	while (*str) LCD_SendData(lcd, *str++);
 }

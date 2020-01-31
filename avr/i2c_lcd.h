@@ -11,6 +11,10 @@
 #ifndef I2C_LCD_H_
 #define I2C_LCD_H_
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #include <util/delay.h>
 #include "i2c_master.h"
 
@@ -47,13 +51,17 @@ typedef struct
 void LCD_Init                (I2C_LCD *lcd);             // initialize lcd
 void LCD_SendCmd             (I2C_LCD *lcd, char cmd);   // send command to the lcd
 void LCD_SendData            (I2C_LCD *lcd, char data);  // send data to the lcd
-void LCD_SendString          (I2C_LCD *lcd, char *str);  // send string to the lcd
+void LCD_SendString          (I2C_LCD *lcd, const char *str);  // send string to the lcd
 void LCD_Clear               (I2C_LCD *lcd);
 void LCD_EnableCursorBlink   (I2C_LCD *lcd);
 void LCD_DisableCursorBlink  (I2C_LCD *lcd);
 void LCD_EnableCursor        (I2C_LCD *lcd);
 void LCD_DisableCursor       (I2C_LCD *lcd);
 void LCD_SetCursor           (I2C_LCD *lcd, uint8_t line, uint8_t col);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /*I2C_LCD_H_ */
 

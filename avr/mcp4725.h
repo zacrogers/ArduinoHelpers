@@ -9,6 +9,10 @@
 #ifndef MCP4725_H_
 #define MCP4725_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "i2c_master.h"
 #include <stdint.h>
 
@@ -24,5 +28,8 @@ void mcp4725_write(uint16_t data);
 void mcp4725_read_dac(void);
 void mcp4725_read_eeprom(void);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* MCP4725_H_ */
