@@ -1,56 +1,38 @@
 /*
- * NCO.h
- * Numerically controlled oscillator
- *
- * Created: 23-Jan-20 10:59:08 PM
- *  Author: Zac
- */ 
-
-
+* Numerically controlled oscillator
+*
+*/
 #ifndef NCO_H_
 #define NCO_H_
 
-#include <math.h>
 #include <stdint.h>
+#include <math.h>
 
-#ifndef F_CLK
-#define F_CLK (float)5000
-#endif
+#define PHASE_ACC_WIDTH 8
+#define LUT_LENGTH 1024
+#define BIT_DEPTH 16
 
-#define _220Hz (float)332.22 // Reference frequency
-#define LUT_LENGTH 256
-
-namespace z_lib
+typedef enum
 {
-	enum class Wave
-	{
-		SINE = 0,
-		SQUARE,
-		TRIANGLE,
-		SAW,
-		REV_SAW
-	};
+	WF_SINE = 0,
+	WF_SQUARE,
+	WF_TRIANGLE,
+	WF_SAW,
+	WF_REV_SAW
+}Waveform;
 
-	class Nco
-	{
-		public:
-			Nco(Wave wave);
-			Nco(uint8_t *wavetable);
-			
-			uint8_t  next_signal   (void);                /* Get next sample, increment phase */
-			void     set_frequency (float freq);          /* Set output frequency of oscillator */
-            void     set_waveform  (Wave wave);           /* Set oscillator as basic waveform */
-            void     set_wavetable (uint8_t *wavetable);  /* Set oscillator as user wavetable */
+typedef struct
+{
+	int lut[LUT_LENGTH];
+	uint16_t phase_accum;
+	uint16_t delta_phase;
+	int clock_freq;
+}NCO;
 
-		private:
-			uint8_t  lut[LUT_LENGTH];
-			float    interrupt_period;
-			float    phase;                                /* Current position in phase along waveform */
-			float    increment;                            /* Amount phase is incremented by each tick */
-	};
-}
-
-
+void NCO_init(NCO *nco, int clock_freq, Waveform wf);
+int  NCO_next_signal(NCO *nco);
+void NCO_set_freq(NCO *nco, float freq);
 
 
 #endif /* NCO_H_ */
+
